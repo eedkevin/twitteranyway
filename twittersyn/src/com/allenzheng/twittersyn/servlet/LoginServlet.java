@@ -22,6 +22,7 @@ public class LoginServlet extends HttpServlet{
 		doPost(request, response);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException{
 		
@@ -29,8 +30,9 @@ public class LoginServlet extends HttpServlet{
 		String passWd = request.getParameter("passWd");
 		if(userName.equals(myUserName) && 
 				passWd.equals(myPassWd)){
-			response.sendRedirect("/main.jsp");
+			response.sendRedirect("main.jsp");
 		}
+		
 	}
 
 }
