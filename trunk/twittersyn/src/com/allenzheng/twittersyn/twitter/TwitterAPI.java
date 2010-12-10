@@ -17,7 +17,16 @@
  *  twitterSina code at http://twitterSina.googlecode.com
  * 	
  */
-package com.allenzheng.twittersyn;
+package com.allenzheng.twittersyn.twitter;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import com.allenzheng.twittersyn.servlet.AccountServlet;
 
 import twitter4j.*;
 import twitter4j.http.AccessToken;
@@ -29,6 +38,9 @@ import twitter4j.http.RequestToken;
  */
 public class TwitterAPI 
 {
+	private static String callbackUrl;
+	private static final Log logger = LogFactory.getLog(TwitterAPI.class);
+	
 	public TwitterAPI(){}
 	
 	/**
@@ -39,34 +51,61 @@ public class TwitterAPI
 	* @return，返回登录是否成功
 	*/
 	
-	public boolean loginTwitterOAuth(String userName, String userPwd){
+	
+	public String getConsumerKey(){
 		
-		try {
+		Properties prop = loadProperties();
+		
+		return prop.getProperty("twitter.consumerkey");
+		
+	}
+	
+	public String getConsumerSecret(){
+		Properties prop = loadProperties();
+		
+		return prop.getProperty("twitter.consumersecret");
+	
+	}
+	
+	public String getReqTokenUrl(){
+		Properties prop = loadProperties();
+		
+		return prop.getProperty("twitter.reqtokenurl");
+	}
+	
+	public String getAccTokenUrl(){
+		Properties prop = loadProperties();
+		
+		return prop.getProperty("twitter.acctokenurl");
+	}
+	
+	public void loginTwitterOAuth() throws TwitterException{
+		Properties prop = loadProperties();
+		
 			Twitter twitter = new Twitter();
-			RequestToken requestToken;
-			requestToken = twitter.getOAuthRequestToken();
-			AccessToken accessToken = null;
-			try{
-	            accessToken = requestToken.getAccessToken();
-	        } catch (TwitterException te) {
-	            if(401 == te.getStatusCode()){
-	                System.out.println("Unable to get the access token.");
-	            }else{
-	                te.printStackTrace();
-	            }
-	        }
-	        
-	        return true;
-		} catch (TwitterException e) {
-			// TODO Auto-generated catch block
-			
-			e.printStackTrace();
-			return false;
-		}
-		
-		
-		
-        
+			twitter.setOAuthConsumer(prop.getProperty("twitter.consumerkey"), 
+					prop.getProperty("twitter.consumersecret"));
+			try {
+				RequestToken requestToken;
+				if (callbackUrl == null) {
+					requestToken = twitter.getOAuthRequestToken();
+				} else {
+					requestToken = twitter
+							.getOAuthRequestToken(callbackUrl);
+				}
+				String authorisationUrl = requestToken
+						.getAuthorizationURL();
+//				session.setAttribute(ATTR_TWITTER, twitter);
+//				session.setAttribute(ATTR_REQUEST_TOKEN, requestToken);
+
+				logger.debug("Redirecting user to " + authorisationUrl);
+//				response.sendRedirect(authorisationUrl);
+			} catch (TwitterException e) {
+				logger.error("Sign in with Twitter failed - "
+						+ e.getMessage());
+				e.printStackTrace();
+				throw new TwitterException(e);
+			}
 		
 		
 	}
@@ -107,5 +146,18 @@ public class TwitterAPI
 			return false;
 		}
 //		return false;
+	}
+	
+	private Properties loadProperties(){
+		InputStream inputStream = this.getClass().
+			getClassLoader().getResourceAsStream("oauth.properties");
+		Properties prop = new Properties();
+		try{
+			prop.load(inputStream);
+		}catch(IOException ex){
+			ex.printStackTrace();
+		}
+		
+		return prop;
 	}
 }
