@@ -101,7 +101,7 @@
                 <td>
                 	<input type="password" id="twitterUserPwdTxt" name="twitterUserPwdTxt" class="textBox" value="<%=twitterUserPwd %>"/>
                 </td>
-            </tr
+            </tr>
 		</table>
 		<table width="100%" cellpadding="0" cellspacing="5" border="0">
             <tr>
