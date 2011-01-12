@@ -40,6 +40,7 @@ public class TwitterAPI
 {
 	private static String callbackUrl;
 	private static final Log logger = LogFactory.getLog(TwitterAPI.class);
+
 	
 	public TwitterAPI(){}
 	
@@ -77,6 +78,13 @@ public class TwitterAPI
 		Properties prop = loadProperties();
 		
 		return prop.getProperty("twitter.acctokenurl");
+	}
+	
+	public String getCallBackUrl(){
+		
+		Properties prop = loadProperties();
+		
+		return prop.getProperty("twitter.callbackurl");
 	}
 	
 	public void loginTwitterOAuth() throws TwitterException{
@@ -121,6 +129,8 @@ public class TwitterAPI
 		return false;
 //		return true;
 	}
+	
+	
 	
 	/**
 	* 发布Twitter消息

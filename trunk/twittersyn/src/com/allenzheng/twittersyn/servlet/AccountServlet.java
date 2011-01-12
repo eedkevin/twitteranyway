@@ -29,6 +29,11 @@ import javax.servlet.http.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import twitter4j.Twitter;
+import twitter4j.TwitterException;
+import twitter4j.http.AccessToken;
+import twitter4j.http.RequestToken;
+
 import com.allenzheng.twittersyn.*;
 import com.allenzheng.twittersyn.common.*;
 import com.allenzheng.twittersyn.twitter.TwitterAPI;
@@ -41,12 +46,47 @@ import com.allenzheng.twittersyn.twitter.TwitterAPI;
  */
 public class AccountServlet extends HttpServlet
 {
+	private static String fileToken = File.separator + "WEB-INF"
+		+ File.separator + "token.txt";
+	private static String callbackUrl;
+	
 	private static final long serialVersionUID = -2632036842196276788L;
 	private static final Log logger = LogFactory.getLog(AccountServlet.class);
 	
 	private static final String PARAM_ACTION = "action";
 	private static final String ACTION_TWITTER_SIGN_IN = "twitter_sign_in";
 	private static final String PARAM_OAUTH_TOKEN = "oauth_token";
+	private static final String PARAM_OAUTH_VERIFIER = "oauth_verifier";
+	
+	private static final String ATTR_TWITTER = "twitter";
+	private static final String ATTR_REQUEST_TOKEN = "request_token";
+	
+	private static final String COOKIE_TWITTER_ID = "twitter_id";
+	
+	
+	@Override
+	public void init(ServletConfig config) throws ServletException {
+		super.init(config);
+
+//		consumerKey = config.getInitParameter(INIT_PARAM_CONSUMER_KEY).trim();
+//		consumerSecret = config.getInitParameter(INIT_PARAM_CONSUMER_SECRET)
+//				.trim();
+//		logger.debug("Consumer key retrieved from web.xml");
+//		logger.debug("Consumer secret retrieved from web.xml");
+
+//		callbackUrl = config.getInitParameter(INIT_PARAM_CALLBACK_URL);
+		TwitterAPI twitterapi = new TwitterAPI();
+		twitterapi.getCallBackUrl();
+		if (callbackUrl != null && !callbackUrl.trim().equals("")) {
+			callbackUrl = callbackUrl.trim();
+			logger.debug("Callback support is enabled, callback url: "
+					+ callbackUrl);
+		}
+
+		fileToken = getServletContext().getRealPath("/") + fileToken;
+		logger.debug("File to store / load access tokens: " + fileToken);
+	}
+	
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 		throws IOException, ServletException
@@ -58,18 +98,75 @@ public class AccountServlet extends HttpServlet
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 	throws IOException, ServletException{
 		String action = request.getParameter(PARAM_ACTION);
+		
+		HttpSession session = request.getSession();
+		
 		if(ACTION_TWITTER_SIGN_IN.equals(action)){
 			logger.debug("Signing in with Twitter...");
 			TwitterAPI twitterapi = new TwitterAPI();
 			
-			HttpSession session = request.getSession();
+			String id = null;
+			Cookie[] cookies = request.getCookies();
+			for (int i = 0; i < cookies.length; i++) {
+				Cookie cookie;
+				cookie = cookies[i];
+				if (COOKIE_TWITTER_ID.equals(cookie.getName())) {
+					id = cookie.getValue();
+				}
+			}
 			
-			String oauthToken = request.getParameter(PARAM_OAUTH_TOKEN);
-			if(oauthToken != null){
-				logger.debug(PARAM_OAUTH_TOKEN + " received from Twitter");
+			AccessToken accessToken = null;
+			if (id != null){
 				
 			}
 			
+			
+		}
+		
+		String oauthToken = request.getParameter(PARAM_OAUTH_TOKEN);
+		if(oauthToken != null){
+			logger.debug(PARAM_OAUTH_TOKEN + " received from Twitter");
+			try {
+				Twitter twitter = (Twitter) session.getAttribute(ATTR_TWITTER);
+				RequestToken requestToken = (RequestToken) session
+						.getAttribute(ATTR_REQUEST_TOKEN);
+				AccessToken accessToken;
+				if (callbackUrl == null) {
+					accessToken = twitter.getOAuthAccessToken(requestToken);
+				} else {
+					String oauthVerifier = request
+							.getParameter(PARAM_OAUTH_VERIFIER);
+					logger.debug(PARAM_OAUTH_VERIFIER
+							+ " received from Twitter");
+					accessToken = twitter.getOAuthAccessToken(requestToken
+							.getToken(), requestToken.getTokenSecret(),
+							oauthVerifier);
+				}
+				twitter.setOAuthAccessToken(accessToken);
+				session.removeAttribute(ATTR_REQUEST_TOKEN);
+				session.setAttribute(ATTR_TWITTER, twitter);
+
+				int id = twitter.verifyCredentials().getId();
+				logger.debug("Access token retrieved for user " + id
+						+ " from Twitter");
+//				storeAccessToken(id, accessToken);
+				Cookie cookie = new Cookie(COOKIE_TWITTER_ID, "" + id);
+				cookie.setMaxAge(63072000); // Valid for 2 years
+				response.addCookie(cookie);
+				logger.debug("Cookie set for user " + id);
+
+				// Get last status and friends' timelines
+//				getMyLastStatusAndStoreInSession(session);
+//				getFriendsTimelinesAndStoreInSession(session);
+
+				// Go to the update status page
+//				request.getRequestDispatcher(PAGE_UPDATE_STATUS).forward(
+//						request, response);
+			} catch (TwitterException e) {
+				logger.error("Failed to retrieve access token - "
+						+ e.getMessage());
+				throw new ServletException(e);
+			}
 		}
 	}
 //	public void doPost(HttpServletRequest request, HttpServletResponse response)

@@ -31,6 +31,7 @@ public class LoginServlet extends HttpServlet{
 		if(userName.equals(myUserName) && 
 				passWd.equals(myPassWd)){
 			response.sendRedirect("main.jsp");
+			
 		}
 		
 	}
