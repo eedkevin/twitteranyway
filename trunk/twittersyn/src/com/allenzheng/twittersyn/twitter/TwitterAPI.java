@@ -145,9 +145,9 @@ public class TwitterAPI
 		try
 		{
 			twitter = new Twitter(twitterUserName,twitterUserPwd);
-			twitter.setClientURL("http://twittersina.appspot.com");
-			twitter.setClientVersion("http://twittersina.appspot.com");
-			twitter.setSource("twittersina");
+//			twitter.setClientURL("http://twittersina.appspot.com");
+//			twitter.setClientVersion("http://twittersina.appspot.com");
+//			twitter.setSource("twittersina");
 			twitter.updateStatus(publishContent);
 			return true;
 		}
