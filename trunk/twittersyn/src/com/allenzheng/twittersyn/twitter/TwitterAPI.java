@@ -26,7 +26,7 @@ import java.util.Properties;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.allenzheng.twittersyn.servlet.AccountServlet;
+import com.allenzheng.twittersyn.controller.AccountServlet;
 
 import twitter4j.*;
 import twitter4j.http.AccessToken;

@@ -17,7 +17,7 @@
  *  twitterSina code at http://twitterSina.googlecode.com
  * 	
  */
-package com.allenzheng.twittersyn.servlet;
+package com.allenzheng.twittersyn.controller;
 
 import java.io.*; 
 import java.util.*; 
