@@ -1,0 +1,149 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>twittersyn</groupId>
+  <artifactId>twittersyn</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <description />
+  <url>http://code.google.com/p/twitteranyway/</url>
+  <organization>
+  	<name>Department of Computer Science, University College Cork</name>
+  	<url>http://www.cs.ucc.ie/</url>
+  </organization>
+	<build>
+		<sourceDirectory>${basedir}/src/main</sourceDirectory>
+		<!-- <testSourceDirectory>${basedir}/src/test</testSourceDirectory> -->
+    	<outputDirectory>${basedir}/war/WEB-INF/classes</outputDirectory>
+    	<resources>
+      		<resource>
+        		<directory>${basedir}/src/main</directory>
+        		<excludes>
+          			<exclude>**/*.java</exclude> 
+        		</excludes>
+      		</resource>
+    	</resources>
+    	<plugins>
+      		<plugin>
+        		<artifactId>maven-war-plugin</artifactId>
+        		<configuration>
+          			<webappDirectory>${basedir}/war</webappDirectory>
+          			<warSourceDirectory>${basedir}/war</warSourceDirectory>
+        		</configuration>
+      		</plugin>
+      		<plugin>
+        		<artifactId>maven-compiler-plugin</artifactId>
+        		<configuration>
+          			<source>1.5</source>
+          			<target>1.5</target>
+        		</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	
+	<properties> 
+    	<spring.version>3.0.5.RELEASE</spring.version>
+    	<!--  <hibernate.version>3.3.0.ga</hibernate.version> -->
+	</properties> 
+	
+	<dependencies>
+		<dependency>
+      		<groupId>org.apache.openejb</groupId>
+      		<artifactId>javaee-api</artifactId>
+      		<version>5.0-1</version>
+      		<scope>provided</scope>
+    	</dependency>
+    	<dependency>
+      		<groupId>javax.faces</groupId>
+      		<artifactId>jsf-api</artifactId>
+      		<version>1.2_02</version>
+      		<scope>provided</scope>
+    	</dependency>
+    	<dependency>
+      		<groupId>javax.servlet</groupId>
+      		<artifactId>jstl</artifactId>
+      		<version>1.2</version>
+      		<scope>provided</scope>
+    	</dependency>
+    	<dependency>
+      		<groupId>javax.servlet.jsp</groupId>
+      		<artifactId>jsp-api</artifactId>
+      		<version>2.1</version>
+      		<scope>provided</scope>
+    	</dependency>
+    	<dependency>
+      		<groupId>javax.faces</groupId>
+      		<artifactId>jsf-impl</artifactId>
+      		<version>1.2-b19</version>
+      		<scope>provided</scope>
+    	</dependency>
+    	
+    	<dependency>
+    		<groupId>commons-dbcp</groupId>
+    		<artifactId>commons-dbcp</artifactId>
+    		<version>1.2.2</version>
+    		<type>jar</type>
+        	<scope>compile</scope>
+		</dependency>
+	
+		<dependency>
+			<groupId>commons-collections</groupId>
+  			<artifactId>commons-collections</artifactId>
+  			<version>3.2</version>
+		</dependency>
+
+		<dependency>
+   			<groupId>commons-pool</groupId>
+   			<artifactId>commons-pool</artifactId>
+   			<version>1.5.4</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${spring.version}</version>
+        	<scope>compile</scope>
+		</dependency>
+		
+
+	
+		<dependency>
+        	<groupId>org.springframework</groupId>
+        	<artifactId>spring-webmvc</artifactId>
+        	<version>${spring.version}</version>
+        	<scope>compile</scope>
+    	</dependency>
+    	
+    	<dependency>
+        	<groupId>org.springframework</groupId>
+        	<artifactId>spring-context</artifactId>
+        	<version>${spring.version}</version>
+        	<scope>compile</scope>
+    	</dependency>
+    	
+    	<dependency>
+        	<groupId>org.springframework</groupId>
+        	<artifactId>spring-orm</artifactId>
+        	<version>${spring.version}</version>
+        	<scope>compile</scope>
+    	</dependency>
+    	
+    	<dependency>
+           <groupId>org.twitter4j</groupId>
+           <artifactId>twitter4j-core</artifactId>
+           <version>[2.1,)</version>
+       </dependency>
+    	
+    	<dependency>		
+	        	<groupId>org.codehaus.jackson</groupId>		
+	        	<artifactId>jackson-mapper-asl</artifactId>		
+	        	<version>1.4.1</version>		
+	    	</dependency>
+	    	
+	    <dependency>
+    		<groupId>net.sf.json-lib</groupId>
+    		<artifactId>json-lib</artifactId>
+    		<version>2.4</version>
+    		<classifier>jdk15</classifier>
+    		<scope>compile</scope>
+		</dependency>
+	</dependencies>
+</project>
