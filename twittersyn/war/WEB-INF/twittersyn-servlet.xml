@@ -15,8 +15,8 @@
                 <property name="defaultContentType" value="text/html" />
                 <property name="mediaTypes">
                         <map>
-                        	<entry key="json" value="application/json" />
                         	<entry key="html" value="text/html" />
+                        	<entry key="json" value="application/json" />
                         	<entry key="xml" value="application/xml" />   
                         </map>
                         

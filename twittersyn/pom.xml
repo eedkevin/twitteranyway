@@ -36,6 +36,12 @@
           			<target>1.5</target>
         		</configuration>
 			</plugin>
+			
+			<plugin>
+				<groupId>net.kindleit</groupId>
+				<artifactId>maven-gae-plugin</artifactId>
+				<version>0.8.1</version>
+			</plugin>
 		</plugins>
 	</build>
 	
@@ -136,8 +142,9 @@
 	        	<groupId>org.codehaus.jackson</groupId>		
 	        	<artifactId>jackson-mapper-asl</artifactId>		
 	        	<version>1.4.1</version>		
-	    	</dependency>
-	    	
+	    </dependency>
+	    
+	   
 	    <dependency>
     		<groupId>net.sf.json-lib</groupId>
     		<artifactId>json-lib</artifactId>

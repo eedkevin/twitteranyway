@@ -94,9 +94,9 @@ public class LoginController{
 //		
 //	}
 	
-	@Autowired
-	public void setLoginService(LoginService loginServ){
-		this.loginServ = loginServ;
-	}
+//	@Autowired
+//	public void setLoginService(LoginService loginServ){
+//		this.loginServ = loginServ;
+//	}
 
 }
