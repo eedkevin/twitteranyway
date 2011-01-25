@@ -188,36 +188,36 @@ public class PublishServlet extends HttpServlet
 			userNameSb.append(renrenAccount.getUserName());
 			userNameSb.append(",");
 		}
-		if(diguAccount != null && updateDigu != null && updateDigu.toLowerCase().equals("on"))
-		{
-			DiguAPI digu = new DiguAPI();
-			if (!digu.publishDigu(diguAccount.getUserName(), 
-					diguAccount.getUserPwd(), publishContent))
-			{
-				fail = true;
-				sb.append(AccountType.DIGUNAME);
-				sb.append(",");
-			}
-			userNameSb.append(AccountType.DIGUNAME);
-			userNameSb.append("-");
-			userNameSb.append(diguAccount.getUserName());
-			userNameSb.append(",");
-		}
-		if(zuosaAccount != null && updateZuosa != null && updateZuosa.toLowerCase().equals("on"))
-		{
-			ZuosaAPI zuosa = new ZuosaAPI();
-			if (!zuosa.publishZuosa(zuosaAccount.getUserName(), 
-					zuosaAccount.getUserPwd(), publishContent))
-			{
-				fail = true;
-				sb.append(AccountType.ZUOSANAME);
-				sb.append(",");
-			}
-			userNameSb.append(AccountType.ZUOSANAME);
-			userNameSb.append("-");
-			userNameSb.append(zuosaAccount.getUserName());
-			userNameSb.append(",");
-		}
+//		if(diguAccount != null && updateDigu != null && updateDigu.toLowerCase().equals("on"))
+//		{
+//			DiguAPI digu = new DiguAPI();
+//			if (!digu.publishDigu(diguAccount.getUserName(), 
+//					diguAccount.getUserPwd(), publishContent))
+//			{
+//				fail = true;
+//				sb.append(AccountType.DIGUNAME);
+//				sb.append(",");
+//			}
+//			userNameSb.append(AccountType.DIGUNAME);
+//			userNameSb.append("-");
+//			userNameSb.append(diguAccount.getUserName());
+//			userNameSb.append(",");
+//		}
+//		if(zuosaAccount != null && updateZuosa != null && updateZuosa.toLowerCase().equals("on"))
+//		{
+//			ZuosaAPI zuosa = new ZuosaAPI();
+//			if (!zuosa.publishZuosa(zuosaAccount.getUserName(), 
+//					zuosaAccount.getUserPwd(), publishContent))
+//			{
+//				fail = true;
+//				sb.append(AccountType.ZUOSANAME);
+//				sb.append(",");
+//			}
+//			userNameSb.append(AccountType.ZUOSANAME);
+//			userNameSb.append("-");
+//			userNameSb.append(zuosaAccount.getUserName());
+//			userNameSb.append(",");
+//		}
 		if(fail)
 		{
 			publishResult = sb.toString();
