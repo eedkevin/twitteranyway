@@ -10,5 +10,7 @@ public class LoginServiceImpl implements LoginService{
 		
 		
 	}
+	
+	private String encrypt
 
 }

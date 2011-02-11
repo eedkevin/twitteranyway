@@ -9,8 +9,7 @@
         <context:component-scan base-package="com.allenzheng.twittersyn.controller"/>
         <context:annotation-config/>
         
-        <bean
-                class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+        <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
                 <property name="ignoreAcceptHeader" value="true" />
                 <property name="defaultContentType" value="text/html" />
                 <property name="mediaTypes">
@@ -29,11 +28,23 @@
                 </property>
                 <property name="defaultViews">
                         <list>
-                                <bean
-                                        class="org.springframework.web.servlet.view.json.MappingJacksonJsonView" />
+                                <bean class="org.springframework.web.servlet.view.json.MappingJacksonJsonView" />
                         </list>
                 </property>
         </bean>
+        
+        <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+    		
+    		<property name="webBindingInitializer"> 
+    		
+        		<bean class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer">
+            
+            		<property name="validator" ref="validator" /> 
+        		</bean> 
+    		</property> 
+		</bean>
+
+		<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
         
         <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"/>
 
