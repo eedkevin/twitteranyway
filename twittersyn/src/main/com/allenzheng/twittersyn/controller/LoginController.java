@@ -4,15 +4,19 @@ import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
+import javax.validation.Valid;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.allenzheng.twittersyn.bean.User;
 import com.allenzheng.twittersyn.common.JsonSerializer;
@@ -32,10 +36,9 @@ public class LoginController{
 	public final String myUserName = "xudongzheng";
 	public final String myPassWd = "liWACuk8";
 	
-	private JsonSerializer jsonSerializer;
 	
-	@RequestMapping(value="/login", method = RequestMethod.GET)
-	public void doLogin(@CookieValue("userName") String userName, 
+	@RequestMapping(value="/login.html", method = RequestMethod.GET)
+	public void doBrowserLogin(@CookieValue("userName") String userName, 
 			@CookieValue("passWd") String passWd){
 		
 		if(userName != null && passWd != null){
@@ -45,6 +48,23 @@ public class LoginController{
 			}catch(LoginException ex){
 				
 			}
+			
+		}
+		
+	}
+	
+	@RequestMapping(value="/login.json", method=RequestMethod.POST)
+	public void doClientLogin(@Valid User user, BindingResult result, ModelMap modelMap){
+		
+		if(!result.hasErrors()){
+			try{
+				loginServ.validateUser(user);
+			}catch(LoginException ex){
+				// not implement yet
+				
+			}
+			
+			modelMap.addAttribute(user);
 			
 		}
 		

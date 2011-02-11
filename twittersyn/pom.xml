@@ -21,6 +21,9 @@
         		</excludes>
       		</resource>
     	</resources>
+
+		
+
     	<plugins>
       		<plugin>
         		<artifactId>maven-war-plugin</artifactId>
@@ -48,10 +51,10 @@
 	<properties> 
     	<spring.version>3.0.5.RELEASE</spring.version>
     	<!--  <hibernate.version>3.3.0.ga</hibernate.version> -->
-	</properties> 
+	</properties>
 	
 	<dependencies>
-		<dependency>
+		<!--  <dependency>
       		<groupId>org.apache.openejb</groupId>
       		<artifactId>javaee-api</artifactId>
       		<version>5.0-1</version>
@@ -80,7 +83,13 @@
       		<artifactId>jsf-impl</artifactId>
       		<version>1.2-b19</version>
       		<scope>provided</scope>
-    	</dependency>
+    	</dependency>-->
+    	
+    	<dependency>
+    		<groupId>javax</groupId>
+    		<artifactId>javaee-api</artifactId>
+    		<version>6.0</version>
+		</dependency>
     	
     	<dependency>
     		<groupId>commons-dbcp</groupId>
@@ -101,6 +110,7 @@
    			<artifactId>commons-pool</artifactId>
    			<version>1.5.4</version>
 		</dependency>
+		
 		
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -131,6 +141,25 @@
         	<version>${spring.version}</version>
         	<scope>compile</scope>
     	</dependency>
+    	
+    	<dependency>
+        	<groupId>org.springframework.security</groupId>
+        	<artifactId>spring-security-core</artifactId>
+        	<version>${spring.version}</version>
+        	<scope>compile</scope>
+    	</dependency>
+    	
+    	<dependency>
+        	<groupId>org.springframework.security</groupId>
+        	<artifactId>spring-security-web</artifactId>
+        	<version>${spring.version}</version>
+        	<scope>compile</scope>
+    	</dependency>
+    	
+    	<!--  <dependency>
+        	<groupId>org.springframework.security.oauth</groupId>
+        	<artifactId>spring-security-oauth</artifactId>
+    	</dependency> -->	
     	
     	<dependency>
            <groupId>org.twitter4j</groupId>

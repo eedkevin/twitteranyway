@@ -90,7 +90,7 @@ public class TwitterAPI
 	public void loginTwitterOAuth() throws TwitterException{
 		Properties prop = loadProperties();
 		
-			Twitter twitter = new Twitter();
+			Twitter twitter = new TwitterFactory().getInstance();
 			twitter.setOAuthConsumer(prop.getProperty("twitter.consumerkey"), 
 					prop.getProperty("twitter.consumersecret"));
 			try {
@@ -117,18 +117,18 @@ public class TwitterAPI
 		
 		
 	}
-	public boolean loginTwitter(String userName, String userPwd)
-	{
-		try
-		{
-			User user = new Twitter(userName,userPwd).verifyCredentials();
-			if(user != null)
-				return true;
-		}
-		catch(TwitterException e){}
-		return false;
-//		return true;
-	}
+//	public boolean loginTwitter(String userName, String userPwd)
+//	{
+//		try
+//		{
+//			User user = new Twitter(userName,userPwd).verifyCredentials();
+//			if(user != null)
+//				return true;
+//		}
+//		catch(TwitterException e){}
+//		return false;
+////		return true;
+//	}
 	
 	
 	
