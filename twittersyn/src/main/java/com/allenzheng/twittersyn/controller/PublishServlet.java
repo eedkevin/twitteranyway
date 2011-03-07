@@ -27,7 +27,7 @@ import javax.servlet.http.*;
 
 import com.allenzheng.twittersyn.*;
 import com.allenzheng.twittersyn.common.*;
-import com.allenzheng.twittersyn.twitter.TwitterAPI;
+import com.allenzheng.twittersyn.twitter.impl.TwitterAPIImpl;
 
 
 /**
@@ -143,7 +143,7 @@ public class PublishServlet extends HttpServlet
 		String publishResult = "";
 		if(twitterAccount != null && updateTwitter != null && updateTwitter.toLowerCase().equals("on"))
 		{
-			TwitterAPI twitter = new TwitterAPI();
+			TwitterAPIImpl twitter = new TwitterAPIImpl();
 			if (!twitter.publishTwitter(twitterAccount.getUserName(), 
 					twitterAccount.getUserPwd(), publishContent))
 			{

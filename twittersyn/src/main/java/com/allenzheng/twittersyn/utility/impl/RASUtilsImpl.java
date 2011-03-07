@@ -22,12 +22,20 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.security.InvalidKeyException;
 import java.security.Key;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Map;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+
+import org.springframework.security.core.codec.Base64;
 
 import com.allenzheng.twittersyn.utility.RSAUtils;
 
@@ -46,17 +54,34 @@ public class RASUtilsImpl implements RSAUtils {
 	private final static String PRIVATE_KEY = "PrivateKey";
 
 
-	public String encryptText(String plaintext) {
+	public String encryptText(String plaintext) throws FileNotFoundException, 
+		NoSuchAlgorithmException, IOException, 
+		ClassNotFoundException, NoSuchPaddingException, InvalidKeyException, 
+		IllegalBlockSizeException, 
+		BadPaddingException{
 		// TODO Auto-generated method stub
+		Key publieKey = loadKey(PUBLIC_KEY);
+		Cipher cipher = Cipher.getInstance("RSA");
+		cipher.init(cipher.ENCRYPT_MODE, publieKey);
+		Base64 base64Encoder = new Base64();
+		byte[] b = base64Encoder.encode(cipher.doFinal(plaintext.getBytes()));
 		
-		
-		return null;
+		return b.toString();
 	}
 
 	
-	public String decryptText(String ciphertext) {
+	public String decryptText(String ciphertext) throws FileNotFoundException, 
+		NoSuchAlgorithmException, IOException, ClassNotFoundException, NoSuchPaddingException,
+		InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
 		// TODO Auto-generated method stub
-		return null;
+		
+		Key privateKey = loadKey(PRIVATE_KEY);
+		Cipher cipher = Cipher.getInstance("RSA");
+		cipher.init(cipher.DECRYPT_MODE, privateKey);
+		Base64 base64Decoder = new Base64();
+		byte[] b = cipher.doFinal(base64Decoder.decode(ciphertext.getBytes()));
+		
+		return b.toString();
 	}
 	
 	private void iniKeyPair() throws NoSuchAlgorithmException, FileNotFoundException, IOException{

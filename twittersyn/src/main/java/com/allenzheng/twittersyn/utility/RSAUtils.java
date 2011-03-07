@@ -15,6 +15,15 @@
  */
 package com.allenzheng.twittersyn.utility;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+
 /**
  * Project Name:twittersyn
  * @author Allen Cheng 
@@ -24,8 +33,8 @@ package com.allenzheng.twittersyn.utility;
  */
 public interface RSAUtils {
 	
-	public String encryptText(String plaintext);
+	public String encryptText(String plaintext) throws Exception;
 	
-	public String decryptText(String ciphertext);
+	public String decryptText(String ciphertext) throws Exception;
 
 }
