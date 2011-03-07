@@ -31,8 +31,9 @@ import org.apache.commons.logging.LogFactory;
 
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
-import twitter4j.http.AccessToken;
-import twitter4j.http.RequestToken;
+import twitter4j.auth.AccessToken;
+import twitter4j.auth.RequestToken;
+
 
 import com.allenzheng.twittersyn.*;
 import com.allenzheng.twittersyn.common.*;
@@ -138,8 +139,7 @@ public class AccountServlet extends HttpServlet
 							.getParameter(PARAM_OAUTH_VERIFIER);
 					logger.debug(PARAM_OAUTH_VERIFIER
 							+ " received from Twitter");
-					accessToken = twitter.getOAuthAccessToken(requestToken
-							.getToken(), requestToken.getTokenSecret(),
+					accessToken = twitter.getOAuthAccessToken(requestToken.getToken(), requestToken.getTokenSecret(),
 							oauthVerifier);
 				}
 				twitter.setOAuthAccessToken(accessToken);
