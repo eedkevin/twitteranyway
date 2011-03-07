@@ -37,7 +37,7 @@ import twitter4j.auth.RequestToken;
 
 import com.allenzheng.twittersyn.*;
 import com.allenzheng.twittersyn.common.*;
-import com.allenzheng.twittersyn.twitter.TwitterAPI;
+import com.allenzheng.twittersyn.twitter.impl.TwitterAPIImpl;
 
 
 
@@ -76,7 +76,7 @@ public class AccountServlet extends HttpServlet
 //		logger.debug("Consumer secret retrieved from web.xml");
 
 //		callbackUrl = config.getInitParameter(INIT_PARAM_CALLBACK_URL);
-		TwitterAPI twitterapi = new TwitterAPI();
+		TwitterAPIImpl twitterapi = new TwitterAPIImpl();
 		twitterapi.getCallBackUrl();
 		if (callbackUrl != null && !callbackUrl.trim().equals("")) {
 			callbackUrl = callbackUrl.trim();
@@ -104,7 +104,7 @@ public class AccountServlet extends HttpServlet
 		
 		if(ACTION_TWITTER_SIGN_IN.equals(action)){
 			logger.debug("Signing in with Twitter...");
-			TwitterAPI twitterapi = new TwitterAPI();
+			TwitterAPIImpl twitterapi = new TwitterAPIImpl();
 			
 			String id = null;
 			Cookie[] cookies = request.getCookies();
