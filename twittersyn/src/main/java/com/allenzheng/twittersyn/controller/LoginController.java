@@ -37,7 +37,7 @@ public class LoginController{
 	public final String myPassWd = "liWACuk8";
 	
 	
-	@RequestMapping(value="/login.html", method = RequestMethod.GET)
+	@RequestMapping(value="/login.json", method = RequestMethod.GET)
 	public void doBrowserLogin(@CookieValue("userName") String userName, 
 			@CookieValue("passWd") String passWd){
 		
