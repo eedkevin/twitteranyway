@@ -20,16 +20,16 @@ public class ExtAccServiceImpl implements ExtAccService{
 	
 	private static final Log logger = LogFactory.getLog(ExtAccServiceImpl.class);
 	private TwitterAPI twitterAPI;
+	
+	private static final String ACTION_TWITTER_SIGN_IN = "twitter_sign_in";
 
 	public void loginExtAcc(ExtAccounts extAccForm) {
 		// TODO Auto-generated method stub
 		
-	}
-	
-	private void loginTwitter(){
-	
+		
 		
 	}
+	
 	
 	@Autowired
 	public void setTwitterAPI(TwitterAPI twitterAPI){
