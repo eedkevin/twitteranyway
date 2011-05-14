@@ -37,7 +37,7 @@ import twitter4j.auth.RequestToken;
 
 import com.allenzheng.twittersyn.*;
 import com.allenzheng.twittersyn.common.*;
-import com.allenzheng.twittersyn.twitter.impl.TwitterAPIImpl;
+import com.allenzheng.twittersyn.utility.impl.TwitterAPIImpl;
 
 
 

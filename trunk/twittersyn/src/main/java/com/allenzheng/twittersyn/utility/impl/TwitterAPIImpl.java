@@ -17,7 +17,7 @@
  *  twitterSina code at http://twitterSina.googlecode.com
  * 	
  */
-package com.allenzheng.twittersyn.twitter.impl;
+package com.allenzheng.twittersyn.utility.impl;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,16 +27,17 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.allenzheng.twittersyn.controller.AccountServlet;
+import com.allenzheng.twittersyn.utility.TwitterAPI;
 
 import twitter4j.*;
-import twitter4j.http.AccessToken;
-import twitter4j.http.RequestToken;
+import twitter4j.auth.AccessToken;
+import twitter4j.auth.RequestToken;
 
 /**
  * 利用API对Twitter进行相关操作
  * @author Steven Wang <http://steven-wang.appspot.com>
  */
-public class TwitterAPIImpl 
+public class TwitterAPIImpl implements TwitterAPI 
 {
 	private static String callbackUrl;
 	private static final Log logger = LogFactory.getLog(TwitterAPIImpl.class);
@@ -139,24 +140,26 @@ public class TwitterAPIImpl
 	* @param publishContent，发布的内容
 	* @return，返回发布是否成功
 	*/
-	public boolean publishTwitter(String twitterUserName, String twitterUserPwd, String publishContent)
-	{
-		Twitter twitter = new Twitter(twitterUserName,twitterUserPwd);
-		try
-		{
-			twitter = new Twitter(twitterUserName,twitterUserPwd);
-//			twitter.setClientURL("http://twittersina.appspot.com");
-//			twitter.setClientVersion("http://twittersina.appspot.com");
-//			twitter.setSource("twittersina");
-			twitter.updateStatus(publishContent);
-			return true;
-		}
-		catch(TwitterException e)
-		{
-			return false;
-		}
-//		return false;
-	}
+//	public boolean publishTwitter(String twitterUserName, String twitterUserPwd, String publishContent)
+//	{
+//		//Twitter twitter = new Twitter(twitterUserName,twitterUserPwd);
+//		Twitter twitter = new TwitterFactory().getInstance();
+//		
+//		try
+//		{
+//			twitter = new Twitter(twitterUserName,twitterUserPwd);
+////			twitter.setClientURL("http://twittersina.appspot.com");
+////			twitter.setClientVersion("http://twittersina.appspot.com");
+////			twitter.setSource("twittersina");
+//			twitter.updateStatus(publishContent);
+//			return true;
+//		}
+//		catch(TwitterException e)
+//		{
+//			return false;
+//		}
+////		return false;
+//	}
 	
 	private Properties loadProperties(){
 		InputStream inputStream = this.getClass().

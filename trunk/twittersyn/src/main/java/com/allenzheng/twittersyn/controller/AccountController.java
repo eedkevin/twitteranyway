@@ -15,6 +15,7 @@
  */
 package com.allenzheng.twittersyn.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,6 +23,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.allenzheng.twittersyn.bean.ExtAccounts;
+import com.allenzheng.twittersyn.controller.validator.ExtAccountsValidator;
+import com.allenzheng.twittersyn.service.ExtAccService;
 
 /**
  * Project Name:twittersyn
@@ -31,11 +34,25 @@ import com.allenzheng.twittersyn.bean.ExtAccounts;
  * 
  */
 public class AccountController {
+	private ExtAccService extAccService;
 	
 	@RequestMapping(value="/extacclogin.json", method = RequestMethod.POST)
 	public void hanldExtAccLogining(@ModelAttribute("account") ExtAccounts extAccForm, 
 			BindingResult result, Model model){
 		
+		new ExtAccountsValidator().validate(extAccForm, result);
+		if(result.hasErrors()){
+			
+			// not implemented yet
+		}else{
+			extAccService.loginExtAcc(extAccForm);
+		}
 		
+	}
+	
+	@Autowired
+	public void setExtAccService(ExtAccService extAccService){
+		
+		this.extAccService = extAccService;
 	}
 }

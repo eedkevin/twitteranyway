@@ -15,8 +15,11 @@
  */
 package com.allenzheng.twittersyn.controller.validator;
 
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
+
+import com.allenzheng.twittersyn.bean.ExtAccounts;
 
 /**
  * Project Name:twittersyn
@@ -26,6 +29,8 @@ import org.springframework.validation.Validator;
  * 
  */
 public class ExtAccountsValidator implements Validator{
+
+	
 
 	/* (non-Javadoc)
 	 * @see org.springframework.validation.Validator#supports(java.lang.Class)
