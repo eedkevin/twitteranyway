@@ -12,6 +12,6 @@ public interface TwitterAPI {
 	
 	public String getCallBackUrl();
 	
-	public void loginTwitterOAuth() throws TwitterException;
+	public String getAuthorisationUrl() throws TwitterException;
 
 }

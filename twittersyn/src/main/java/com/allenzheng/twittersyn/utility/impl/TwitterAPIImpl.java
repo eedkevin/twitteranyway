@@ -88,7 +88,7 @@ public class TwitterAPIImpl implements TwitterAPI
 		return prop.getProperty("twitter.callbackurl");
 	}
 	
-	public void loginTwitterOAuth() throws TwitterException{
+	public String getAuthorisationUrl() throws TwitterException{
 		Properties prop = loadProperties();
 		
 			Twitter twitter = new TwitterFactory().getInstance();
@@ -109,6 +109,7 @@ public class TwitterAPIImpl implements TwitterAPI
 
 				logger.debug("Redirecting user to " + authorisationUrl);
 //				response.sendRedirect(authorisationUrl);
+				return authorisationUrl;
 			} catch (TwitterException e) {
 				logger.error("Sign in with Twitter failed - "
 						+ e.getMessage());
